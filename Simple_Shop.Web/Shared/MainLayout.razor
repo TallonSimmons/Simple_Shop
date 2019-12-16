@@ -1,0 +1,15 @@
+﻿@inherits LayoutComponentBase
+
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">
+    <Blazored.Toast.BlazoredToasts Timeout="1"></Blazored.Toast.BlazoredToasts>
+    <div class="top-row px-4" style="height: 8vh;">
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>

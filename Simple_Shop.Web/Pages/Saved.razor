@@ -1,0 +1,52 @@
+﻿@page "/saved"
+@inject IMediator mediator
+@inject AppState state
+@inject NavigationManager navigationManager
+
+@if (shoppingCarts.Count() <= 0)
+{
+    <h2>Loading...</h2>
+}
+else
+{
+    <div class="row">
+        @for (int i = 0; i < shoppingCarts.Count(); i++)
+        {
+            var shoppingCart = shoppingCarts.ToList()[i];
+            <div class="card col-sm-4">
+                <div class="card-header">
+                    Order @(i + 1)
+                </div>
+                <div class="card-body">
+                    <ul>
+                        @foreach (var product in shoppingCart.ProductsInCart)
+                        {
+                            <li>
+                                @product.Title: $@product.Price
+                            </li>
+                        }
+                    </ul>
+                    <button class="btn btn-primary btn-block col-sm-6 m-auto" @onclick="@(e => Reorder(shoppingCart))">Reorder</button>
+                </div>
+            </div>
+        }
+    </div>
+}
+@code {
+    IEnumerable<ShoppingCart> shoppingCarts = new List<ShoppingCart>();
+
+    void Reorder(ShoppingCart shoppingCart)
+    {
+        shoppingCart.ProductsInCart
+            .ToList()
+            .ForEach(x => state.AddProductToCart(x));
+
+        state.CreateNewOrder();
+        navigationManager.NavigateTo("/checkout");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        shoppingCarts = await mediator.Send(new SavedShoppingCartsQuery());
+    }
+}

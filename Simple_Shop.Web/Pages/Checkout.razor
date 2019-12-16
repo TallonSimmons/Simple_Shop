@@ -1,0 +1,28 @@
+﻿@page "/checkout"
+@inject AppState  state
+
+@if (viewModel.Order == null)
+{
+    <h2>Loading...</h2>
+}
+else
+{
+    <div>
+        @foreach (var productGrouping in viewModel.ProductGroupings)
+        {
+            <LineItem Products="productGrouping"></LineItem>
+            <hr />
+        }
+        <h4>Tax: @viewModel.Order.Tax.ToString("C2")</h4>
+        <h4>Total: @viewModel.Order.Total.ToString("C2")</h4>
+    </div>
+}
+
+@code {
+    CheckoutViewModel viewModel;
+
+    protected override void OnInitialized()
+    {
+        viewModel = new CheckoutViewModel(state.CurrentOrder);
+    }
+}

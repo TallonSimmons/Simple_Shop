@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <!--Manually set language version-->
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.Toast" Version="2.0.8" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Simple_Shop.Data\Simple_Shop.Data.csproj" />
+    <ProjectReference Include="..\Simple_Shop.Domain\Simple_Shop.Domain.csproj" />
+    <ProjectReference Include="..\Simple_Shop.Events\Simple_Shop.Events.csproj" />
+  </ItemGroup>
+
+</Project>

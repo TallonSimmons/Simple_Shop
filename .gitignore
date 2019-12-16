@@ -1,0 +1,16 @@
+Simple_Shop.Web/obj/
+.vs/
+Simple_Shop.Web/bin/
+Simple_Shop.Domain/obj/
+Simple_Shop.SharedKernel/obj/
+Simple_Shop.Data/obj/
+Simple_Shop.Data/bin/
+Simple_Shop.Domain/bin/
+DomainEvents/bin/
+DomainEvents/obj/
+Simple_Shop.Events/bin/
+Simple_Shop.Events/obj/
+Simple_Shop.Tests/bin/
+Simple_Shop.Tests/obj/Debug/
+Simple_Shop.Tests/obj/Simple_Shop.Tests.csproj.nuget.cache
+Simple_Shop.Tests/obj/

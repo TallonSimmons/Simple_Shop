@@ -1,0 +1,21 @@
+﻿<div>
+    @if (Products.Count() == 1)
+    {
+        var product = Products.FirstOrDefault();
+        <div class="row align-items-md-baseline">
+            <h4 class="mr-2">@product.Title:</h4> <h5>$@product.TotalPrice</h5>
+        </div>
+    }
+    else if (Products.Count() > 1)
+    {
+        var product = Products.FirstOrDefault();
+        <div>
+            <h4>@product.Title:</h4> <h5>$@(product.TotalPrice * Products.Count()) (@Products.Count() @@ $@product.TotalPrice)</h5>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public IGrouping<int, Product> Products { get; set; }
+}
