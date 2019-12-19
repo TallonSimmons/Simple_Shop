@@ -5,7 +5,19 @@ namespace Simple_Shop.Domain.Entities
 {
     public class Order : BaseEntity
     {
-        public ICollection<Product> Products { get; set; }
+        ICollection<Product> products = new List<Product>();
+
+        public ICollection<Product> Products
+        { 
+            get
+            {
+                return products.ToList().AsReadOnly();
+            }
+            set
+            {
+                products = value;
+            }
+        }
         public decimal Tax => GetTax();
         public decimal Total => GetTotal();
 

@@ -1,6 +1,5 @@
 ﻿@page "/invalid"
 @inject IMediator mediator
-@inject AppState  state
 @inject IToastService toastService
 
 <div class="row">
@@ -22,6 +21,5 @@
     void DisplayInvalidProduct (Product product)
     {
         toastService.ShowError($"{ product.Title} is not a valid product.");
-        this.StateHasChanged();
     }
 }

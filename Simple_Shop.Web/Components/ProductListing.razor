@@ -1,5 +1,5 @@
-﻿@using Simple_Shop.Domain.Entities
-@inject AppState  state
+﻿@inherits StoreXComponent<AppStore>
+@inject IToastService toastService
 
 <div class="col-sm-6 mt-2">
     <div class="card">
@@ -22,20 +22,20 @@
     [Parameter]
     public EventCallback<Product> ProductAddedEventCallback { get; set; }
 
-    void AddProductToCart()
+    async void AddProductToCart()
     {
         try
         {
-            state.AddProductToCart(Product);
-            ProductAddedEventCallback.InvokeAsync(Product);
+            await CommitStoreXMutation(new AddProductToCartMutation(Product));
+            await ProductAddedEventCallback.InvokeAsync(Product);
         }
         catch (ProductInvalidException)
         {
-            InvalidProductAddedEventCallback.InvokeAsync(Product);
+            await InvalidProductAddedEventCallback.InvokeAsync(Product);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            // Log exception; notify user of error; etc.
+            toastService.ShowError("Something went wrong while adding that product.");
         }
     }
 }

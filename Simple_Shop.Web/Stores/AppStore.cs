@@ -1,23 +1,24 @@
 ﻿using Simple_Shop.Domain.Entities;
-using Simple_Shop.Domain.Events;
+using StoreX;
 
-namespace Simple_Shop.Web
+namespace Simple_Shop.Web.Stores
 {
-    public class AppState
+    public class AppStore : StoreXStore
     {
         public ShoppingCart ShoppingCart { get; private set; } = new ShoppingCart();
         public Order CurrentOrder { get; private set; } = new Order();
 
-        public void AddProductToCart(Product product)
+        internal void AddProductToCart(Product product)
         {
             ShoppingCart.AddProductToCart(product);
+            NotifyStoreMutated();
         }
 
-        public void CreateNewOrder()
+        internal void CreateNewOrder()
         {
             CurrentOrder = Order.FromShoppingCart(ShoppingCart);
-            CurrentOrder.Events?.Add(new OrderPlacedEvent());
             ShoppingCart.EmptyCart();
+            NotifyStoreMutated();
         }
     }
 }

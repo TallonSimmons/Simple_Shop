@@ -1,5 +1,5 @@
 ﻿@page "/checkout"
-@inject AppState  state
+@inherits StoreXComponent<AppStore>
 
 @if (viewModel.Order == null)
 {
@@ -13,8 +13,8 @@ else
             <LineItem Products="productGrouping"></LineItem>
             <hr />
         }
-        <h4>Tax: @viewModel.Order.Tax.ToString("C2")</h4>
-        <h4>Total: @viewModel.Order.Total.ToString("C2")</h4>
+        <h4>Tax: @viewModel.Order.Tax.ToString("C")</h4>
+        <h4>Total: @viewModel.Order.Total.ToString("C")</h4>
     </div>
 }
 
@@ -23,6 +23,6 @@ else
 
     protected override void OnInitialized()
     {
-        viewModel = new CheckoutViewModel(state.CurrentOrder);
+        viewModel = new CheckoutViewModel(Store.CurrentOrder);
     }
 }

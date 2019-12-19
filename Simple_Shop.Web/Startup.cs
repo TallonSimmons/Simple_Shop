@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Simple_Shop.Data.Configuration;
 using Simple_Shop.Events.Configuration;
+using StoreX;
 
 namespace Simple_Shop.Web
 {
@@ -26,11 +27,11 @@ namespace Simple_Shop.Web
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddMediatR(Assembly.GetExecutingAssembly());
             DomainEventDependencyConfiguration.Configure(services);
             DataDependencyConfiguration.Configure(services);
-            services.AddScoped<AppState>();
+            services.AddStoreX();
             services.AddBlazoredToast();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,8 +1,7 @@
-﻿
-@page "/"
+﻿@page "/"
+@inherits StoreXComponent<AppStore>
 @inject IMediator  mediator
 @inject IToastService toastService
-@inject AppState  state
 @inject NavigationManager navigationManager
 
 @if (viewModel.ProductsToDisplay.Count <= 0)
@@ -13,7 +12,7 @@
 }
 else
 {
-    if (state.ShoppingCart.ProductsInCart.Count > 0)
+    if (Store.ShoppingCart.ProductsInCart.Count > 0)
     {
         <button class="btn btn-block btn-primary col-sm-6 mx-auto mb-2" @onclick="Checkout">Checkout</button>
     }
@@ -59,9 +58,9 @@ else
         toastService.ShowSuccess($"{product.Title} added to cart.");
     }
 
-    void Checkout()
+    async void Checkout()
     {
-        state.CreateNewOrder();
+        await CommitStoreXMutation(new CreateNewOrderMutation());
         navigationManager.NavigateTo("/checkout");
     }
 

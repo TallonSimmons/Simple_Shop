@@ -1,7 +1,7 @@
 ﻿@page "/saved"
 @inject IMediator mediator
-@inject AppState state
 @inject NavigationManager navigationManager
+@inherits StoreXComponent<AppStore>
 
 @if (shoppingCarts.Count() <= 0)
 {
@@ -35,13 +35,13 @@ else
 @code {
     IEnumerable<ShoppingCart> shoppingCarts = new List<ShoppingCart>();
 
-    void Reorder(ShoppingCart shoppingCart)
+    async void Reorder(ShoppingCart shoppingCart)
     {
         shoppingCart.ProductsInCart
             .ToList()
-            .ForEach(x => state.AddProductToCart(x));
+            .ForEach(async x => await CommitStoreXMutation(new AddProductToCartMutation(x)));
 
-        state.CreateNewOrder();
+        await CommitStoreXMutation(new CreateNewOrderMutation());
         navigationManager.NavigateTo("/checkout");
     }
 
